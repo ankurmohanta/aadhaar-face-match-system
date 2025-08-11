@@ -1,0 +1,20 @@
+services:
+  train_gpu:
+      image: ultralytics/ultralytics:latest
+      entrypoint: bash
+      stdin_open: true
+      tty: true
+      runtime: nvidia
+      mem_limit: 50g
+      shm_size: 50g
+      volumes:
+              - type: bind
+                source: /opt/workspace/aadhar_face_matching/workspace
+                target: /workspace
+      deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                device_ids: ["0"]
+                capabilities: [gpu]
